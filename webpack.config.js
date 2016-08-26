@@ -1,11 +1,12 @@
-var path = require("path");  
+var path = require("path");
 var webpack = require('webpack');
 
 
 module.exports = {
+	devtool: "inline-source-map",
 	entry: [
 		'webpack-dev-server/client?http://localhost:8080',
-  	'webpack/hot/only-dev-server',
+		'webpack/hot/only-dev-server',
 		'./app/src/index.js'
 	],
 	output: {
@@ -16,15 +17,16 @@ module.exports = {
 	module: {
 		loaders: [
 			{
-		  	test: /\.jsx$/,
-		  	exclude: /node_modules/,
+				test: /\.jsx$/,
+				exclude: /node_modules/,
 				include: path.join(__dirname, "app"),
-		  	loaders: ["react-hot", "babel"],
+				loaders: ["react-hot", "babel?presets[]=react,presets[]=es2015"],
 			},
 			{
-				test: /\js$/,
+				test: /\.js$/,
 				exclude: /node_modules/,
-				loader: "babel-loader"
+                include: path.join(__dirname, "app"),
+                loader: "babel-loader"
 			}
 		],
 	},
